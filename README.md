@@ -12,3 +12,13 @@ A clone of the classic game Pong.  I would like to add a bit of extra style, dep
 
 # User flow
 Fork and clone the repo and install pygame.  Bre coffee and enjoy
+
+
+
+
+# MVP
++ build a working a two player copy of pong
+# Stretch
++ built a player vs computer version of pong
++ add some cool effects and animations
++ build a 3d version
