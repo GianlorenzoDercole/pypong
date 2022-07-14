@@ -17,7 +17,6 @@ white = (250,250,250)
 
 
 
-
 # set player scores to 0
 player_left_score = 0
 player_right_score = 0
@@ -34,8 +33,8 @@ player_right_direction = 0
 ball_xdirection = 5
 ball_ydirection = 5
 play = True
-
-while True:
+play = play
+while play:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -63,51 +62,51 @@ while True:
             if event.key == pygame.K_UP:
                 player_right_direction += 7
 
-    # keep playing until someone get three
-    if player_left_score < 3 and player_right_score < 3:
+    # ball movement
+    ball.x += ball_xdirection
+    ball.y += ball_ydirection
+    # player movement
+    player_left.y += player_left_direction
+    player_right.y += player_right_direction
+    # player left collision
+    if ball.x == player_left.x + 10 and (ball.y >= player_left.y -15 and ball.y <= player_left.y + 100):
+        ball_xdirection = ball_xdirection * -1
+    # player right collision
+    if ball.x == player_right.x - 20 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
+        ball_xdirection = ball_xdirection * -1
+    # wall collision if ball goes off screen reset
+    if ball.x > 1290:
+        ball_xdirection = ball_xdirection * -1
+        ball.x = 585
+        ball.y = 435
+        player_left_score += 1
+    if ball.x < -90:
+        ball_xdirection = ball_xdirection * -1
+        ball.x = 585
+        ball.y = 435
+        player_right_score += 1
+    # change direction it reaches top or bottom of screen
+    if ball.y < 0 or ball.y > 870:
+        ball_ydirection = ball_ydirection * -1
 
-        # ball movement
-        ball.x += ball_xdirection
-        ball.y += ball_ydirection
-        # player movement
-        player_left.y += player_left_direction
-        player_right.y += player_right_direction
-        # player left collision
-        if ball.x == player_left.x + 10 and (ball.y >= player_left.y -15 and ball.y <= player_left.y + 100):
-            ball_xdirection = ball_xdirection * -1
-        # player right collision
-        if ball.x == player_right.x - 20 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
-            ball_xdirection = ball_xdirection * -1
-        # wall collision if ball goes off screen reset
-        if ball.x > 1290:
-            ball_xdirection = ball_xdirection * -1
-            ball.x = 585
-            ball.y = 435
-            player_left_score += 1
-        if ball.x < -90:
-            ball_xdirection = ball_xdirection * -1
-            ball.x = 585
-            ball.y = 435
-            player_right_score += 1
-        # change direction it reaches top or bottom of screen
-        if ball.y < 0 or ball.y > 870:
-            ball_ydirection = ball_ydirection * -1
-
-        # color for court
-        screen.fill('grey')
-        # draw the ball
-        pygame.draw.ellipse(screen,white, ball)
-        # draw players
-        pygame.draw.rect(screen, white, player_left)
-        pygame.draw.rect(screen, white, player_right)
-        # player left score
-        player_left_text = score_font.render(f'{player_left_score}', False, white)
-        screen.blit(player_left_text, (560, 10))
-        # player right score
-        player_right_text = score_font.render(f'{player_right_score}', False, white)
-        screen.blit(player_right_text, (610, 10))
-        # line in middle of screen
-        pygame.draw.aaline(screen, white, (600,0),(600,900))
+    # color for court
+    screen.fill('grey')
+    # draw the ball
+    pygame.draw.ellipse(screen,white, ball)
+    # draw players
+    pygame.draw.rect(screen, white, player_left)
+    pygame.draw.rect(screen, white, player_right)
+    # player left score
+    player_left_text = score_font.render(f'{player_left_score}', False, white)
+    screen.blit(player_left_text, (560, 10))
+    # player right score
+    player_right_text = score_font.render(f'{player_right_score}', False, white)
+    screen.blit(player_right_text, (610, 10))
+    # line in middle of screen
+    pygame.draw.aaline(screen, white, (600,0),(600,900))
+    # finish game
+    if player_left_score == 3 or player_right_score == 3:
+        play = False
 
     # update window
     pygame.display.flip()
