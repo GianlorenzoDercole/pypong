@@ -51,6 +51,7 @@ while True:
                 player_left_direction -= 7
             if event.key == pygame.K_w:
                 player_left_direction += 7
+
         # player right movement
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_DOWN:
@@ -62,6 +63,24 @@ while True:
                 player_right_direction -= 7
             if event.key == pygame.K_UP:
                 player_right_direction += 7
+        # reset scores to zero
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_y:
+                player_left_score = 0
+                player_right_score = 0
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_y:
+                player_left_score = 0
+                player_right_score = 0
+        # quit the game
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_n:
+                pygame.quit()
+                sys.exit()
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_n:
+                pygame.quit()
+                sys.exit()
 
     # keep playing until someone get three
     if player_left_score < 3 and player_right_score < 3:
@@ -109,6 +128,11 @@ while True:
         # line in middle of screen
         pygame.draw.aaline(screen, white, (600,0),(600,900))
 
+    if player_left_score == 3 or player_right_score == 3:
+        player_left_text = score_font.render('Game Over', False, white)
+        screen.blit(player_left_text, (440, 260))
+        player_left_text = score_font.render('press Y to continue or N to quit', False, white)
+        screen.blit(player_left_text, (160, 360))
     # update window
     pygame.display.flip()
     # this means 60 frames per sec
