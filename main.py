@@ -8,6 +8,7 @@ screen_width = 1200
 screen_height = 900
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Pong')
+
 # make the ball
 ball = pygame.Rect(585,435,30,30)
 
@@ -62,9 +63,19 @@ while True:
     # player movement
     player_left.y += player_left_direction
     player_right.y += player_right_direction
-    if ball.x > 1200 or ball.x < 10:
+    # player left collision
+    if ball.x == player_left.x + 10 and (ball.y >= player_left.y -15 and ball.y <= player_left.y + 100):
         ball_xdirection = ball_xdirection * -1
-    if ball.y < 10 or ball.y > 910:
+    # player right collision
+    if ball.x == player_right.x - 20 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
+        ball_xdirection = ball_xdirection * -1
+    # wall collision if ball goes off screen reset
+    if ball.x > 1290 or ball.x < -90:
+        ball_xdirection = ball_xdirection * -1
+        ball.x = 585
+        ball.y = 435
+    # change direction it reaches top or bottom of screen
+    if ball.y < 0 or ball.y > 870:
         ball_ydirection = ball_ydirection * -1
     # color for court
     screen.fill('grey')
@@ -73,7 +84,8 @@ while True:
     # draw players
     pygame.draw.rect(screen, white, player_left)
     pygame.draw.rect(screen, white, player_right)
-
+    # line in middle of screen
+    pygame.draw.aaline(screen, white, (600,0),(600,900))
     # update window
     pygame.display.flip()
     # this means 60 frames per sec
