@@ -1,4 +1,15 @@
 import pygame, sys
+class Button:
+    def __init__(self,text,width,height,pos):
+        self.shape = pygame.Rect(pos,(width, height))
+        self.color = 'black'
+
+        self.text = score_font.render(text, True, 'white')
+        self.text_rect = self.text.get_rect(center = self.shape.center)
+
+    def draw(self):
+        pygame.draw.rect(screen, self.color , self.shape)
+        screen.blit(self.text, self.text_rect)
 
 # add all pygame modules
 pygame.init()
@@ -23,6 +34,7 @@ player_left_score = 0
 player_right_score = 0
 # font style for the score
 score_font = pygame.font.Font('freesansbold.ttf', 60)
+button1 = Button('cl',250,250,(500, 700))
 # make player left and right
 player_left = pygame.Rect(60,350,20,100)
 player_right = pygame.Rect(1140,350,20,100)
@@ -354,6 +366,7 @@ while True:
         screen.blit(player_left_text, (150, 500))
         player_left_text = score_font.render('press n to quit', False, white)
         screen.blit(player_left_text, (400, 600))
+        button1.draw()
         # update window
         pygame.display.flip()
         # this means 60 frames per sec
