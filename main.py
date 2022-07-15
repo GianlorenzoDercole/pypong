@@ -132,6 +132,11 @@ while play:
         screen.blit(player_right_text, (610, 10))
         # line in middle of screen
         pygame.draw.aaline(screen, white, (600,0),(600,900))
+    # move player to center if they go off screen
+    if player_left.y < -100 or player_left.y > 910:
+        player_left.y = 350
+    if player_right.y < -100 or player_right.y > 910:
+        player_right.y = 350
     # display message to quit or continue
     if player_left_score == 3 or player_right_score == 3:
         player_left_text = score_font.render('Game Over', False, white)
