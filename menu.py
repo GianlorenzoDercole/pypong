@@ -17,7 +17,7 @@ white = (250,250,250)
 
 
 
-
+player_vs_c = False
 # set player scores to 0
 player_left_score = 0
 player_right_score = 0
@@ -153,6 +153,12 @@ while True:
             screen.blit(player_right_text, (610, 10))
             # line in middle of screen
             pygame.draw.aaline(screen, white, (600,0),(600,900))
+
+        # move player to center if they go off screen
+        if player_left.y < -100 or player_left.y > 910:
+            player_left.y = 350
+        if player_right.y < -100 or player_right.y > 910:
+            player_right.y = 350
         # display message to quit or continue
         if player_left.y < -100 or player_left.y > 910:
             player_left.y = 350
@@ -171,7 +177,7 @@ while True:
 
 
 
-    player_vs_c = False
+
     while player_vs_c:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -203,10 +209,12 @@ while True:
             # reset scores to zero
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_y:
+                    player_left.y = 350
                     player_left_score = 0
                     player_right_score = 0
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_y:
+                    player_left.y = 350
                     player_left_score = 0
                     player_right_score = 0
             # quit the game
@@ -219,6 +227,26 @@ while True:
                     pygame.quit()
                     sys.exit()
 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_o:
+                    player_left_score = 0
+                    player_right_score = 0
+                    player_left.y = 350
+                    player_right.y = 350
+                    ball.x = 600
+                    ball.y = 450
+                    player_vs_c = False
+                    options = True
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_o:
+                    player_left_score = 0
+                    player_right_score = 0
+                    player_left.y = 350
+                    player_right.y = 350
+                    ball.x = 600
+                    ball.y = 450
+                    player_vs_c = False
+                    options = True
         # keep playing until someone get three
         if player_left_score < 3 and player_right_score < 3:
 
@@ -290,21 +318,43 @@ while True:
                 pygame.quit()
                 sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_u:
+            if event.key == pygame.K_p:
                 options = False
                 play = True
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_u:
+            if event.key == pygame.K_p:
                 options = False
                 play = True
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_c:
+                options = False
+                play = False
+                player_vs_c = True
 
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_c:
+                options = False
+                play = False
+                player_vs_c = True
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_n:
+                pygame.quit()
+                sys.exit()
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_n:
+                pygame.quit()
+                sys.exit()
         screen.fill('grey')
         pygame.draw.rect(screen, 'blue', bg)
-        player_left_text = score_font.render('Options press u to play', False, white)
+        player_left_text = score_font.render('Options', False, white)
         screen.blit(player_left_text, (440, 260))
+        player_left_text = score_font.render('press P for two player', False, white)
+        screen.blit(player_left_text, (250, 400))
+        player_left_text = score_font.render('press C for player vs computer', False, white)
+        screen.blit(player_left_text, (150, 500))
         player_left_text = score_font.render('press n to quit', False, white)
-        screen.blit(player_left_text, (440, 600))
+        screen.blit(player_left_text, (400, 600))
         # update window
         pygame.display.flip()
         # this means 60 frames per sec

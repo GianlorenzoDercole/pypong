@@ -33,7 +33,7 @@ player_right_direction = 0
 # this affects ball movement in the game loop
 ball_xdirection = 5
 ball_ydirection = 5
-play = True
+play = False
 
 while play:
     for event in pygame.event.get():
@@ -148,7 +148,7 @@ while play:
     # this means 60 frames per sec
     clock.tick(60)
 
-player_vs_c = False
+player_vs_c = True
 while player_vs_c:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -248,6 +248,11 @@ while player_vs_c:
         screen.blit(player_right_text, (610, 10))
         # line in middle of screen
         pygame.draw.aaline(screen, white, (600,0),(600,900))
+    # move player to center if they go off screen
+    if player_left.y < -100 or player_left.y > 910:
+        player_left.y = 350
+    if player_right.y < -100 or player_right.y > 910:
+        player_right.y = 350
     # display message to quit or continue
     if player_left_score == 3 or player_right_score == 3:
         player_left_text = score_font.render('Game Over', False, white)
