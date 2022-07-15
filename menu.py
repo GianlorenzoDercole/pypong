@@ -79,14 +79,14 @@ while True:
                     player_right.y = 350
 
             # quit the game
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_n:
-                    pygame.quit()
-                    sys.exit()
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_n:
-                    pygame.quit()
-                    sys.exit()
+            # if event.type == pygame.KEYDOWN:
+            #     if event.key == pygame.K_n:
+            #         pygame.quit()
+            #         sys.exit()
+            # if event.type == pygame.KEYUP:
+            #     if event.key == pygame.K_n:
+            #         pygame.quit()
+            #         sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_o:
@@ -153,7 +153,6 @@ while True:
             screen.blit(player_right_text, (610, 10))
             # line in middle of screen
             pygame.draw.aaline(screen, white, (600,0),(600,900))
-
         # move player to center if they go off screen
         if player_left.y < -100 or player_left.y > 910:
             player_left.y = 350
@@ -167,7 +166,7 @@ while True:
         if player_left_score == 3 or player_right_score == 3:
             player_left_text = score_font.render('Game Over', False, white)
             screen.blit(player_left_text, (440, 260))
-            player_left_text = score_font.render('press Y to continue or N to quit', False, white)
+            player_left_text = score_font.render('press Y to continue or O to quit', False, white)
             screen.blit(player_left_text, (160, 360))
         # update window
         pygame.display.flip()
@@ -303,7 +302,7 @@ while True:
         if player_left_score == 3 or player_right_score == 3:
             player_left_text = score_font.render('Game Over', False, white)
             screen.blit(player_left_text, (440, 260))
-            player_left_text = score_font.render('press Y to continue or N to quit', False, white)
+            player_left_text = score_font.render('press Y to continue or O to quit', False, white)
             screen.blit(player_left_text, (160, 360))
         # update window
         pygame.display.flip()
