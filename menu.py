@@ -1,16 +1,6 @@
 import pygame, sys
-class Button:
-    def __init__(self,text,width,height,pos):
-        self.shape = pygame.Rect(pos,(width, height))
-        self.color = 'black'
 
-        self.text = score_font.render(text, True, 'white')
-        self.text_rect = self.text.get_rect(center = self.shape.center)
-
-    def draw(self):
-        pygame.draw.rect(screen, self.color , self.shape)
-        screen.blit(self.text, self.text_rect)
-
+from button import *
 # add all pygame modules
 pygame.init()
 clock = pygame.time.Clock()
@@ -19,7 +9,7 @@ screen_width = 1200
 screen_height = 900
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Pong')
-options = False
+
 # make the ball
 ball = pygame.Rect(585,435,30,30)
 bg = pygame.Rect(0,0, 1200,900)
@@ -34,7 +24,8 @@ player_left_score = 0
 player_right_score = 0
 # font style for the score
 score_font = pygame.font.Font('freesansbold.ttf', 60)
-button1 = Button('cl',250,250,(500, 700))
+button1 = Button('player vs computer',800,150,(200, 400))
+button2 = Button('player vs player', 800, 150, (200, 600))
 # make player left and right
 player_left = pygame.Rect(60,350,20,100)
 player_right = pygame.Rect(1140,350,20,100)
@@ -90,15 +81,7 @@ while True:
                     player_left.y = 350
                     player_right.y = 350
 
-            # quit the game
-            # if event.type == pygame.KEYDOWN:
-            #     if event.key == pygame.K_n:
-            #         pygame.quit()
-            #         sys.exit()
-            # if event.type == pygame.KEYUP:
-            #     if event.key == pygame.K_n:
-            #         pygame.quit()
-            #         sys.exit()
+
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_o:
@@ -310,6 +293,10 @@ while True:
             screen.blit(player_right_text, (610, 10))
             # line in middle of screen
             pygame.draw.aaline(screen, white, (600,0),(600,900))
+        if player_left.y < -100 or player_left.y > 910:
+            player_left.y = 350
+        if player_right.y < -100 or player_right.y > 910:
+            player_right.y = 350
         # display message to quit or continue
         if player_left_score == 3 or player_right_score == 3:
             player_left_text = score_font.render('Game Over', False, white)
@@ -356,8 +343,13 @@ while True:
             if event.key == pygame.K_n:
                 pygame.quit()
                 sys.exit()
+        mouse_pos = pygame.mouse.get_pos()
+        # if event.type == pygame.MOUSEBUTTONDOWN:
+        #     if button1.check_click(mouse_pos):
+        #         options = False
+        #         play = True
         screen.fill('grey')
-        pygame.draw.rect(screen, 'blue', bg)
+        pygame.draw.rect(screen, 'black', bg)
         player_left_text = score_font.render('Options', False, white)
         screen.blit(player_left_text, (440, 260))
         player_left_text = score_font.render('press P for two player', False, white)
@@ -367,6 +359,7 @@ while True:
         player_left_text = score_font.render('press n to quit', False, white)
         screen.blit(player_left_text, (400, 600))
         button1.draw()
+        button2.draw()
         # update window
         pygame.display.flip()
         # this means 60 frames per sec
