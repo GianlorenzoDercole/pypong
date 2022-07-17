@@ -106,7 +106,6 @@ while True:
                     options = True
         # keep playing until someone get three
         if player_left_score < 3 and player_right_score < 3:
-
             # ball movement
             ball.x += ball_xdirection
             ball.y += ball_ydirection
@@ -114,10 +113,10 @@ while True:
             player_left.y += player_left_direction
             player_right.y += player_right_direction
             # player left collision
-            if ball.x == player_left.x + 10 and (ball.y >= player_left.y -15 and ball.y <= player_left.y + 100):
+            if ball.x == player_left.x + 5 and (ball.y >= player_left.y -15 and ball.y <= player_left.y + 100):
                 ball_xdirection = ball_xdirection * -1
             # player right collision
-            if ball.x == player_right.x - 20 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
+            if ball.x == player_right.x - 30 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
                 ball_xdirection = ball_xdirection * -1
             # wall collision if ball goes off screen reset
             if ball.x > 1290:
@@ -260,7 +259,7 @@ while True:
                 ball_xdirection = ball_xdirection * -1
                 ball_ydirection = ball_ydirection * 1.1
             # player right collision
-            if ball.x == player_right.x - 20 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
+            if ball.x == player_right.x - 30 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
                 ball_xdirection = ball_xdirection * -1
             # wall collision if ball goes off screen reset
             if ball.x > 1290:
