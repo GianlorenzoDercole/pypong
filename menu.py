@@ -24,11 +24,12 @@ player_left_score = 0
 player_right_score = 0
 # font style for the score
 score_font = pygame.font.Font('freesansbold.ttf', 60)
-button1 = Button('player vs computer',800,150,(200, 400))
-button2 = Button('player vs player', 800, 150, (200, 600))
+button1 = Button('press P for player vs player',1000,150,(100, 350))
+button2 = Button('press C for player vs computer', 1000, 150, (100, 550))
+button3 = Button('PyPong',1000,150,(100, 150))
 # make player left and right
-player_left = pygame.Rect(60,350,20,100)
-player_right = pygame.Rect(1140,350,20,100)
+player_left = pygame.Rect(40,350,5,100)
+player_right = pygame.Rect(1140,350,5,100)
 
 # this affects the player movement in the game loop
 player_left_direction = 0
@@ -134,7 +135,7 @@ while True:
                 ball_ydirection = ball_ydirection * -1
 
             # color for court
-            screen.fill('grey')
+            screen.fill('black')
             # draw the ball
             pygame.draw.ellipse(screen,white, ball)
             # draw players
@@ -159,9 +160,9 @@ while True:
         if player_right.y < -100 or player_right.y > 910:
             player_right.y = 350
         if player_left_score == 3 or player_right_score == 3:
-            player_left_text = score_font.render('Game Over', False, white)
+            player_left_text = score_font.render('Game Over', False, 'pink')
             screen.blit(player_left_text, (440, 260))
-            player_left_text = score_font.render('press Y to continue or O to quit', False, white)
+            player_left_text = score_font.render('press Y to continue or O to quit', False, 'pink')
             screen.blit(player_left_text, (160, 360))
         # update window
         pygame.display.flip()
@@ -251,13 +252,13 @@ while True:
             player_left.y += player_left_direction
             if ball.x >  300:
                 if player_right.y < ball.y:
-                    player_right.y += 5
+                    player_right.y += 6
                 if player_right.y > ball.y:
-                    player_right.y -= 5
+                    player_right.y -= 6
             # player left collision
-            if ball.x == player_left.x + 10 and (ball.y >= player_left.y -15 and ball.y <= player_left.y + 100):
+            if ball.x == player_left.x + 5 and (ball.y >= player_left.y -15 and ball.y <= player_left.y + 100):
                 ball_xdirection = ball_xdirection * -1
-                ball_xdirection = ball_xdirection * 1.1
+                ball_ydirection = ball_ydirection * 1.1
             # player right collision
             if ball.x == player_right.x - 20 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
                 ball_xdirection = ball_xdirection * -1
@@ -279,7 +280,7 @@ while True:
                 ball_ydirection = ball_ydirection * -1
 
             # color for court
-            screen.fill('grey')
+            screen.fill('black')
             # draw the ball
             pygame.draw.ellipse(screen,white, ball)
             # draw players
@@ -299,10 +300,13 @@ while True:
             player_right.y = 350
         # display message to quit or continue
         if player_left_score == 3 or player_right_score == 3:
-            player_left_text = score_font.render('Game Over', False, white)
+            player_left_text = score_font.render('Game Over', False, 'pink')
             screen.blit(player_left_text, (440, 260))
-            player_left_text = score_font.render('press Y to continue or O to quit', False, white)
+            player_left_text = score_font.render('press Y to continue or O to quit', False, 'pink')
             screen.blit(player_left_text, (160, 360))
+            # set ball speed to begining
+            ball_xdirection = 5
+            ball_ydirection = 5
         # update window
         pygame.display.flip()
         # this means 60 frames per sec
@@ -350,16 +354,33 @@ while True:
         #         play = True
         screen.fill('grey')
         pygame.draw.rect(screen, 'black', bg)
-        player_left_text = score_font.render('Options', False, white)
-        screen.blit(player_left_text, (440, 260))
-        player_left_text = score_font.render('press P for two player', False, white)
-        screen.blit(player_left_text, (250, 400))
-        player_left_text = score_font.render('press C for player vs computer', False, white)
-        screen.blit(player_left_text, (150, 500))
-        player_left_text = score_font.render('press n to quit', False, white)
-        screen.blit(player_left_text, (400, 600))
+        # player_left_text = score_font.render('Options', False, white)
+        # screen.blit(player_left_text, (480, 260))
+        # player_left_text = score_font.render('press P for two player', False, white)
+        # screen.blit(player_left_text, (310, 400))
+        # player_left_text = score_font.render('press C for player vs computer', False, white)
+        # screen.blit(player_left_text, (180, 500))
+        # player_left_text = score_font.render('press n to quit', False, white)
+        # screen.blit(player_left_text, (400, 600))
+        # draw players
+        pygame.draw.rect(screen, white, player_left)
+        player_left.y = 350
+        # draw ball
+        pygame.draw.rect(screen, white, player_right)
+        #pygame.draw.ellipse(screen,white, ball)
+        ball.x = 760
+        ball.y = 200
+        player_right.y = 350
+            #player left score
+        player_left_text = score_font.render(f'{player_left_score}', False, white)
+        screen.blit(player_left_text, (560, 10))
+            # player right score
+        player_right_text = score_font.render(f'{player_right_score}', False, white)
+        screen.blit(player_right_text, (610, 10))
+        button3.draw()
         button1.draw()
         button2.draw()
+
         # update window
         pygame.display.flip()
         # this means 60 frames per sec

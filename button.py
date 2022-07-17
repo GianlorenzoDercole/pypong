@@ -10,8 +10,8 @@ score_font = pygame.font.Font('freesansbold.ttf', 60)
 class Button:
     def __init__(self,text,width,height,pos):
         self.shape = pygame.Rect(pos,(width, height))
-        self.color = 'pink'
-        self.text = score_font.render(text, True, 'black')
+        self.color = 'black'
+        self.text = score_font.render(text, True, 'pink')
         self.text_rect = self.text.get_rect(center = self.shape.center)
         self.pressed = False
     def draw(self):

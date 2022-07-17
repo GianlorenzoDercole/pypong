@@ -351,6 +351,7 @@ while True:
         screen.blit(player_left_text, (150, 500))
         player_left_text = score_font.render('press n to quit', False, white)
         screen.blit(player_left_text, (400, 600))
+        
         # update window
         pygame.display.flip()
         # this means 60 frames per sec
