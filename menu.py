@@ -1,20 +1,25 @@
 import pygame, sys
 
+# set variables to control which game mode player is in
 options = True
 play = False
 player_vs_c = False
+# function to switch from options menu to player vs player
 def player_vs_player():
     global options
     global play
     options = False
     play = True
-def player_vs_compute():
+# function to switch from options menu to player vs computer
+def player_vs_computer():
     global options
     global player_vs_c
     options = False
     player_vs_c = True
+# button class used for clickable text on options menu
 class Button:
     def __init__(self,text,width,height,pos):
+        # surface for button
         self.shape = pygame.Rect(pos,(width, height))
         self.color = blue
         self.text = score_font.render(text, True, white)
@@ -24,7 +29,7 @@ class Button:
         pygame.draw.rect(screen, self.color , self.shape)
         screen.blit(self.text, self.text_rect)
         self.check_click()
-
+    # this button does not have function for click
     def check_click(self):
         mouse_pos = pygame.mouse.get_pos()
         if self.shape.collidepoint(mouse_pos):
@@ -33,11 +38,9 @@ class Button:
             else:
                 if self.pressed == True:
 
-                    print('y')
-                    player_vs_player()
                     self.pressed = False
-
-class Button1:
+# this button switches from options to player vs player
+class Button_player_vs_player:
     def __init__(self,text,width,height,pos):
         self.shape = pygame.Rect(pos,(width, height))
         self.color = blue
@@ -48,7 +51,7 @@ class Button1:
         pygame.draw.rect(screen, self.color , self.shape)
         screen.blit(self.text, self.text_rect)
         self.check_click()
-
+    # this button calls player_vs_player function when clicked
     def check_click(self):
         mouse_pos = pygame.mouse.get_pos()
         if self.shape.collidepoint(mouse_pos):
@@ -57,10 +60,33 @@ class Button1:
             else:
                 if self.pressed == True:
 
-                    print('y')
-                    player_vs_compute()
+                    player_vs_player()
+
                     self.pressed = False
 
+# this button switches from options to player vs computer
+class Button_player_vs_computer:
+    def __init__(self,text,width,height,pos):
+        self.shape = pygame.Rect(pos,(width, height))
+        self.color = blue
+        self.text = score_font.render(text, True, white)
+        self.text_rect = self.text.get_rect(center = self.shape.center)
+        self.pressed = False
+    def draw(self):
+        pygame.draw.rect(screen, self.color , self.shape)
+        screen.blit(self.text, self.text_rect)
+        self.check_click()
+    # this button calls player_vs computer function when clicked
+    def check_click(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.shape.collidepoint(mouse_pos):
+            if pygame.mouse.get_pressed()[0]:
+                self.pressed = True
+            else:
+                if self.pressed == True:
+
+                    player_vs_computer()
+                    self.pressed = False
 # add all pygame modules
 pygame.init()
 clock = pygame.time.Clock()
@@ -74,18 +100,17 @@ ball = pygame.Rect(585,435,30,30)
 bg = pygame.Rect(0,0, 1200,900)
 #color white for player and ball
 white = (250,250,250)
+# color blue for board
 blue = (102, 191, 191)
-
-
-
 # set player scores to 0
 player_left_score = 0
 player_right_score = 0
 # font style for the score
 score_font = pygame.font.Font('freesansbold.ttf', 45)
-button1 = Button('Click here or press P for player vs player',1000,150,(100, 350))
-button2 = Button1('Click here or press C for player vs computer', 1000, 150, (100, 550))
-button3 = Button('PyPong',1000,150,(100, 150))
+# buttons for options menu
+button1 = Button('PyPong',1000,150,(100, 150))
+button2 = Button_player_vs_player('Click here or press P for player vs player',1000,150,(100, 350))
+button3 = Button_player_vs_computer('Click here or press C for player vs computer', 1000, 150, (100, 550))
 # make player left and right
 player_left = pygame.Rect(40,350,5,100)
 player_right = pygame.Rect(1140,350,5,100)
@@ -96,9 +121,8 @@ player_right_direction = 0
 ball_xdirection = 5
 ball_ydirection = 5
 
-
-
 while True:
+    # this loop runs the player vs player logic
     while play:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -140,9 +164,7 @@ while True:
                     player_right_score = 0
                     player_left.y = 350
                     player_right.y = 350
-
-
-
+            # quit game go back to options menu
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_o:
                     player_left_score = 0
@@ -213,10 +235,6 @@ while True:
         if player_right.y < -100 or player_right.y > 910:
             player_right.y = 350
         # display message to quit or continue
-        if player_left.y < -100 or player_left.y > 910:
-            player_left.y = 350
-        if player_right.y < -100 or player_right.y > 910:
-            player_right.y = 350
         if player_left_score == 3 or player_right_score == 3:
             player_left_text = score_font.render('Game Over', False, white)
             screen.blit(player_left_text, (500, 260))
@@ -226,7 +244,7 @@ while True:
         pygame.display.flip()
         # this means 60 frames per sec
         clock.tick(60)
-
+    # game loop for player vs computer logic
     while player_vs_c:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -266,16 +284,8 @@ while True:
                     player_left.y = 350
                     player_left_score = 0
                     player_right_score = 0
-            # quit the game
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_n:
-                    pygame.quit()
-                    sys.exit()
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_n:
-                    pygame.quit()
-                    sys.exit()
 
+            # quit game return to options menu
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_o:
                     player_left_score = 0
@@ -302,8 +312,9 @@ while True:
             # ball movement
             ball.x += ball_xdirection
             ball.y += ball_ydirection
-            # player movement
+            # player left movement
             player_left.y += player_left_direction
+            # computer movement
             if ball.x >  300:
                 if player_right.y < ball.y:
                     player_right.y += 6
@@ -347,8 +358,8 @@ while True:
             player_right_text = score_font.render(f'{player_right_score}', False, white)
             screen.blit(player_right_text, (610, 10))
             # line in middle of screen
-            #if player_left_score < 3 and player_right_score < 3:
             pygame.draw.aaline(screen, white, (600,0),(600,900))
+            # if player goes off screen set back to middle
         if player_left.y < -100 or player_left.y > 910:
             player_left.y = 350
         if player_right.y < -100 or player_right.y > 910:
@@ -368,32 +379,33 @@ while True:
         clock.tick(60)
 
 
-
+    # this loop runs logic for options menu
     while options:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+        # switch to player vs player
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_p:
                 options = False
                 play = True
-
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_p:
                 options = False
                 play = True
+        # switch to player vs computer
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_c:
                 options = False
                 play = False
                 player_vs_c = True
-
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_c:
                 options = False
                 play = False
                 player_vs_c = True
+        # quit
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_n:
                 pygame.quit()
@@ -402,43 +414,28 @@ while True:
             if event.key == pygame.K_n:
                 pygame.quit()
                 sys.exit()
-        mouse_pos = pygame.mouse.get_pos()
-        # if event.type == pygame.MOUSEBUTTONDOWN:
-        #     if button1.check_click(mouse_pos):
-        #         options = False
-        #         play = True
-        screen.fill('grey')
+        # color screen blue
+        screen.fill(blue)
         pygame.draw.rect(screen, blue, bg)
-        # player_left_text = score_font.render('Options', False, white)
-        # screen.blit(player_left_text, (480, 260))
-        # player_left_text = score_font.render('press P for two player', False, white)
-        # screen.blit(player_left_text, (310, 400))
-        # player_left_text = score_font.render('press C for player vs computer', False, white)
-        # screen.blit(player_left_text, (180, 500))
-        # player_left_text = score_font.render('press n to quit', False, white)
-        # screen.blit(player_left_text, (400, 600))
+
         # draw players
         pygame.draw.rect(screen, white, player_left)
         player_left.y = 350
-        # draw ball
         pygame.draw.rect(screen, white, player_right)
-        #pygame.draw.ellipse(screen,white, ball)
-        ball.x = 760
-        ball.y = 200
         player_right.y = 350
-            #player left score
+        #player left score
         player_left_text = score_font.render(f'{player_left_score}', False, white)
         screen.blit(player_left_text, (565, 10))
-            # player right score
+        # player right score
         player_right_text = score_font.render(f'{player_right_score}', False, white)
         screen.blit(player_right_text, (610, 10))
         # center line
         pygame.draw.aaline(screen, white, (600,0),(600,290))
         pygame.draw.aaline(screen, white, (600,700),(600,900))
-        button3.draw()
+
         button1.draw()
         button2.draw()
-
+        button3.draw()
 
         # update window
         pygame.display.flip()
