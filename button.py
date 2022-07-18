@@ -1,5 +1,10 @@
 import pygame, sys
 
+
+options = True
+play = False
+player_vs_c = False
+# initialize pygame and screen set up
 pygame.init()
 screen_width = 1200
 screen_height = 900
@@ -8,6 +13,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 # options = True
 score_font = pygame.font.Font('freesansbold.ttf', 60)
 class Button:
+
     def __init__(self,text,width,height,pos):
         self.shape = pygame.Rect(pos,(width, height))
         self.color = 'black'
@@ -26,7 +32,10 @@ class Button:
                 self.pressed = True
             else:
                 if self.pressed == True:
-                    # options = False
-                    # play = True
+
                     print('y')
+
                     self.pressed = False
+
+# def function use global
+# import function fun in click

@@ -1,6 +1,66 @@
 import pygame, sys
 
-from button import *
+options = True
+play = False
+player_vs_c = False
+def player_vs_player():
+    global options
+    global play
+    options = False
+    play = True
+def player_vs_compute():
+    global options
+    global player_vs_c
+    options = False
+    player_vs_c = True
+class Button:
+    def __init__(self,text,width,height,pos):
+        self.shape = pygame.Rect(pos,(width, height))
+        self.color = 'black'
+        self.text = score_font.render(text, True, 'hotpink')
+        self.text_rect = self.text.get_rect(center = self.shape.center)
+        self.pressed = False
+    def draw(self):
+        pygame.draw.rect(screen, self.color , self.shape)
+        screen.blit(self.text, self.text_rect)
+        self.check_click()
+
+    def check_click(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.shape.collidepoint(mouse_pos):
+            if pygame.mouse.get_pressed()[0]:
+                self.pressed = True
+            else:
+                if self.pressed == True:
+
+                    print('y')
+                    player_vs_player()
+                    self.pressed = False
+
+class Button1:
+    def __init__(self,text,width,height,pos):
+        self.shape = pygame.Rect(pos,(width, height))
+        self.color = 'black'
+        self.text = score_font.render(text, True, 'hotpink')
+        self.text_rect = self.text.get_rect(center = self.shape.center)
+        self.pressed = False
+    def draw(self):
+        pygame.draw.rect(screen, self.color , self.shape)
+        screen.blit(self.text, self.text_rect)
+        self.check_click()
+
+    def check_click(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.shape.collidepoint(mouse_pos):
+            if pygame.mouse.get_pressed()[0]:
+                self.pressed = True
+            else:
+                if self.pressed == True:
+
+                    print('y')
+                    player_vs_compute()
+                    self.pressed = False
+
 # add all pygame modules
 pygame.init()
 clock = pygame.time.Clock()
@@ -16,14 +76,15 @@ bg = pygame.Rect(0,0, 1200,900)
 white = (250,250,250)
 
 
-player_vs_c = False
+
+
 # set player scores to 0
 player_left_score = 0
 player_right_score = 0
 # font style for the score
 score_font = pygame.font.Font('freesansbold.ttf', 60)
 button1 = Button('press P for player vs player',1000,150,(100, 350))
-button2 = Button('press C for player vs computer', 1000, 150, (100, 550))
+button2 = Button1('press C for player vs computer', 1000, 150, (100, 550))
 button3 = Button('PyPong',1000,150,(100, 150))
 # make player left and right
 player_left = pygame.Rect(40,350,5,100)
@@ -34,8 +95,9 @@ player_right_direction = 0
 # this affects ball movement in the game loop
 ball_xdirection = 5
 ball_ydirection = 5
-options = True
-play = False
+
+
+
 while True:
     while play:
         for event in pygame.event.get():
