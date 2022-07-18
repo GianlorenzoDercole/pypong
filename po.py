@@ -899,3 +899,18 @@ while player_vs_c:
     pygame.display.flip()
     # this means 60 frames per sec
     clock.tick(60)
+
+
+
+
+
+# screen.blit(text, (600, 140))
+
+# # font = pygame.font.SysFont('geneva', 130)
+# # text = font.render('u', True, white)
+# s = pygame.font.get_fonts()
+# # for n in s:
+# #     font = pygame.font.SysFont(s[n], 130)
+# #     text = font.render('u', True, white)
+# font = pygame.font.SysFont(f'{s[30]}', 130)
+# text = font.render('u', True, white)

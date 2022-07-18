@@ -16,7 +16,6 @@ bg = pygame.Rect(0,0, 1200,900)
 white = (250,250,250)
 
 
-
 player_vs_c = False
 # set player scores to 0
 player_left_score = 0
@@ -29,7 +28,6 @@ button3 = Button('PyPong',1000,150,(100, 150))
 # make player left and right
 player_left = pygame.Rect(40,350,5,100)
 player_right = pygame.Rect(1140,350,5,100)
-
 # this affects the player movement in the game loop
 player_left_direction = 0
 player_right_direction = 0
@@ -166,10 +164,6 @@ while True:
         pygame.display.flip()
         # this means 60 frames per sec
         clock.tick(60)
-
-
-
-
 
     while player_vs_c:
         for event in pygame.event.get():
@@ -375,9 +369,13 @@ while True:
             # player right score
         player_right_text = score_font.render(f'{player_right_score}', False, 'green')
         screen.blit(player_right_text, (610, 10))
+        # center line
+        pygame.draw.aaline(screen, 'blue', (600,0),(600,290))
+        pygame.draw.aaline(screen, 'blue', (600,700),(600,900))
         button3.draw()
         button1.draw()
         button2.draw()
+
 
         # update window
         pygame.display.flip()

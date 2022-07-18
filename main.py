@@ -26,7 +26,6 @@ score_font = pygame.font.Font('freesansbold.ttf', 60)
 # make player left and right
 player_left = pygame.Rect(60,350,20,100)
 player_right = pygame.Rect(1140,350,20,100)
-
 # this affects the player movement in the game loop
 player_left_direction = 0
 player_right_direction = 0
