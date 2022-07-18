@@ -40,17 +40,14 @@ class Button:
 
                     self.pressed = False
 # this button switches from options to player vs player
-class Button_player_vs_player:
+class Button_player_vs_player(Button):
     def __init__(self,text,width,height,pos):
+        super().__init__(text,width,height,pos)
         self.shape = pygame.Rect(pos,(width, height))
         self.color = blue
         self.text = score_font.render(text, True, white)
         self.text_rect = self.text.get_rect(center = self.shape.center)
         self.pressed = False
-    def draw(self):
-        pygame.draw.rect(screen, self.color , self.shape)
-        screen.blit(self.text, self.text_rect)
-        self.check_click()
     # this button calls player_vs_player function when clicked
     def check_click(self):
         mouse_pos = pygame.mouse.get_pos()
@@ -65,17 +62,14 @@ class Button_player_vs_player:
                     self.pressed = False
 
 # this button switches from options to player vs computer
-class Button_player_vs_computer:
+class Button_player_vs_computer(Button):
     def __init__(self,text,width,height,pos):
+        super().__init__(text,width,height,pos)
         self.shape = pygame.Rect(pos,(width, height))
         self.color = blue
         self.text = score_font.render(text, True, white)
         self.text_rect = self.text.get_rect(center = self.shape.center)
         self.pressed = False
-    def draw(self):
-        pygame.draw.rect(screen, self.color , self.shape)
-        screen.blit(self.text, self.text_rect)
-        self.check_click()
     # this button calls player_vs computer function when clicked
     def check_click(self):
         mouse_pos = pygame.mouse.get_pos()
@@ -84,7 +78,6 @@ class Button_player_vs_computer:
                 self.pressed = True
             else:
                 if self.pressed == True:
-
                     player_vs_computer()
                     self.pressed = False
 # add all pygame modules
@@ -432,7 +425,7 @@ while True:
         # center line
         pygame.draw.aaline(screen, white, (600,0),(600,290))
         pygame.draw.aaline(screen, white, (600,700),(600,900))
-
+        # display buttons
         button1.draw()
         button2.draw()
         button3.draw()
