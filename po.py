@@ -259,11 +259,6 @@ while True:
 
 
 
-
-
-
-
-
 import pygame, sys
 class Button:
     def __init__(self,text,width,height,pos):
@@ -441,10 +436,6 @@ while True:
         pygame.display.flip()
         # this means 60 frames per sec
         clock.tick(60)
-
-
-
-
 
     while player_vs_c:
         for event in pygame.event.get():

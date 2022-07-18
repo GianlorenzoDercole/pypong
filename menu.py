@@ -16,8 +16,8 @@ def player_vs_compute():
 class Button:
     def __init__(self,text,width,height,pos):
         self.shape = pygame.Rect(pos,(width, height))
-        self.color = 'black'
-        self.text = score_font.render(text, True, 'hotpink')
+        self.color = blue
+        self.text = score_font.render(text, True, white)
         self.text_rect = self.text.get_rect(center = self.shape.center)
         self.pressed = False
     def draw(self):
@@ -40,8 +40,8 @@ class Button:
 class Button1:
     def __init__(self,text,width,height,pos):
         self.shape = pygame.Rect(pos,(width, height))
-        self.color = 'black'
-        self.text = score_font.render(text, True, 'hotpink')
+        self.color = blue
+        self.text = score_font.render(text, True, white)
         self.text_rect = self.text.get_rect(center = self.shape.center)
         self.pressed = False
     def draw(self):
@@ -74,7 +74,7 @@ ball = pygame.Rect(585,435,30,30)
 bg = pygame.Rect(0,0, 1200,900)
 #color white for player and ball
 white = (250,250,250)
-
+blue = (102, 191, 191)
 
 
 
@@ -82,9 +82,9 @@ white = (250,250,250)
 player_left_score = 0
 player_right_score = 0
 # font style for the score
-score_font = pygame.font.Font('freesansbold.ttf', 60)
-button1 = Button('press P for player vs player',1000,150,(100, 350))
-button2 = Button1('press C for player vs computer', 1000, 150, (100, 550))
+score_font = pygame.font.Font('freesansbold.ttf', 45)
+button1 = Button('Click here or press P for player vs player',1000,150,(100, 350))
+button2 = Button1('Click here or press C for player vs computer', 1000, 150, (100, 550))
 button3 = Button('PyPong',1000,150,(100, 150))
 # make player left and right
 player_left = pygame.Rect(40,350,5,100)
@@ -193,20 +193,20 @@ while True:
                 ball_ydirection = ball_ydirection * -1
 
             # color for court
-            screen.fill('black')
+            screen.fill(blue)
             # draw the ball
-            pygame.draw.ellipse(screen,'hotpink', ball)
+            pygame.draw.ellipse(screen,white, ball)
             # draw players
-            pygame.draw.rect(screen, 'green', player_left)
-            pygame.draw.rect(screen, 'green', player_right)
+            pygame.draw.rect(screen, white, player_left)
+            pygame.draw.rect(screen, white, player_right)
             # player left score
-            player_left_text = score_font.render(f'{player_left_score}', False, 'green')
-            screen.blit(player_left_text, (560, 10))
+            player_left_text = score_font.render(f'{player_left_score}', False, white)
+            screen.blit(player_left_text, (565, 10))
             # player right score
-            player_right_text = score_font.render(f'{player_right_score}', False, 'green')
+            player_right_text = score_font.render(f'{player_right_score}', False, white)
             screen.blit(player_right_text, (610, 10))
             # line in middle of screen
-            pygame.draw.aaline(screen, 'blue', (600,0),(600,900))
+            pygame.draw.aaline(screen, white, (600,0),(600,900))
         # move player to center if they go off screen
         if player_left.y < -100 or player_left.y > 910:
             player_left.y = 350
@@ -218,10 +218,10 @@ while True:
         if player_right.y < -100 or player_right.y > 910:
             player_right.y = 350
         if player_left_score == 3 or player_right_score == 3:
-            player_left_text = score_font.render('Game Over', False, 'hotpink')
-            screen.blit(player_left_text, (440, 260))
-            player_left_text = score_font.render('press Y to continue or O to quit', False, 'hotpink')
-            screen.blit(player_left_text, (160, 360))
+            player_left_text = score_font.render('Game Over', False, white)
+            screen.blit(player_left_text, (500, 260))
+            player_left_text = score_font.render('press Y to continue or O to quit', False, white)
+            screen.blit(player_left_text, (255, 360))
         # update window
         pygame.display.flip()
         # this means 60 frames per sec
@@ -334,30 +334,31 @@ while True:
                 ball_ydirection = ball_ydirection * -1
 
             # color for court
-            screen.fill('black')
+            screen.fill(blue)
             # draw the ball
-            pygame.draw.ellipse(screen,'hotpink', ball)
+            pygame.draw.ellipse(screen,white, ball)
             # draw players
-            pygame.draw.rect(screen, 'green', player_left)
-            pygame.draw.rect(screen, 'green', player_right)
+            pygame.draw.rect(screen, white, player_left)
+            pygame.draw.rect(screen, white, player_right)
             # player left score
-            player_left_text = score_font.render(f'{player_left_score}', False, 'green')
-            screen.blit(player_left_text, (560, 10))
+            player_left_text = score_font.render(f'{player_left_score}', False, white)
+            screen.blit(player_left_text, (565, 10))
             # player right score
-            player_right_text = score_font.render(f'{player_right_score}', False, 'green')
+            player_right_text = score_font.render(f'{player_right_score}', False, white)
             screen.blit(player_right_text, (610, 10))
             # line in middle of screen
-            pygame.draw.aaline(screen, 'blue', (600,0),(600,900))
+            #if player_left_score < 3 and player_right_score < 3:
+            pygame.draw.aaline(screen, white, (600,0),(600,900))
         if player_left.y < -100 or player_left.y > 910:
             player_left.y = 350
         if player_right.y < -100 or player_right.y > 910:
             player_right.y = 350
         # display message to quit or continue
         if player_left_score == 3 or player_right_score == 3:
-            player_left_text = score_font.render('Game Over', False, 'hotpink')
-            screen.blit(player_left_text, (440, 260))
-            player_left_text = score_font.render('press Y to continue or O to quit', False, 'hotpink')
-            screen.blit(player_left_text, (160, 360))
+            player_left_text = score_font.render('Game Over', False, white)
+            screen.blit(player_left_text, (500, 260))
+            player_left_text = score_font.render('press Y to continue or O to quit', False, white)
+            screen.blit(player_left_text, (255, 360))
             # set ball speed to begining
             ball_xdirection = 5
             ball_ydirection = 5
@@ -407,7 +408,7 @@ while True:
         #         options = False
         #         play = True
         screen.fill('grey')
-        pygame.draw.rect(screen, 'black', bg)
+        pygame.draw.rect(screen, blue, bg)
         # player_left_text = score_font.render('Options', False, white)
         # screen.blit(player_left_text, (480, 260))
         # player_left_text = score_font.render('press P for two player', False, white)
@@ -417,23 +418,23 @@ while True:
         # player_left_text = score_font.render('press n to quit', False, white)
         # screen.blit(player_left_text, (400, 600))
         # draw players
-        pygame.draw.rect(screen, 'green', player_left)
+        pygame.draw.rect(screen, white, player_left)
         player_left.y = 350
         # draw ball
-        pygame.draw.rect(screen, 'green', player_right)
+        pygame.draw.rect(screen, white, player_right)
         #pygame.draw.ellipse(screen,white, ball)
         ball.x = 760
         ball.y = 200
         player_right.y = 350
             #player left score
-        player_left_text = score_font.render(f'{player_left_score}', False, 'green')
-        screen.blit(player_left_text, (560, 10))
+        player_left_text = score_font.render(f'{player_left_score}', False, white)
+        screen.blit(player_left_text, (565, 10))
             # player right score
-        player_right_text = score_font.render(f'{player_right_score}', False, 'green')
+        player_right_text = score_font.render(f'{player_right_score}', False, white)
         screen.blit(player_right_text, (610, 10))
         # center line
-        pygame.draw.aaline(screen, 'blue', (600,0),(600,290))
-        pygame.draw.aaline(screen, 'blue', (600,700),(600,900))
+        pygame.draw.aaline(screen, white, (600,0),(600,290))
+        pygame.draw.aaline(screen, white, (600,700),(600,900))
         button3.draw()
         button1.draw()
         button2.draw()
