@@ -242,15 +242,17 @@ while True:
             ball.y += ball_ydirection
             # player movement
             player_left.y += player_left_direction
+            player_right_move = 5
             if ball.x >  300:
                 if player_right.y < ball.y:
-                    player_right.y += 5
+                    player_right.y += player_right_move
                 if player_right.y > ball.y:
-                    player_right.y -= 5
+                    player_right.y -= player_right_move
             # player left collision
             if ball.x == player_left.x + 10 and (ball.y >= player_left.y -15 and ball.y <= player_left.y + 100):
                 ball_xdirection = ball_xdirection * -1
                 ball_xdirection = ball_xdirection * 1.1
+                player_right_move = player_right_move * 1.05
             # player right collision
             if ball.x == player_right.x - 20 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
                 ball_xdirection = ball_xdirection * -1
@@ -351,7 +353,7 @@ while True:
         screen.blit(player_left_text, (150, 500))
         player_left_text = score_font.render('press n to quit', False, white)
         screen.blit(player_left_text, (400, 600))
-        
+
         # update window
         pygame.display.flip()
         # this means 60 frames per sec

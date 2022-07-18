@@ -135,15 +135,15 @@ while True:
             # color for court
             screen.fill('black')
             # draw the ball
-            pygame.draw.ellipse(screen,'pink', ball)
+            pygame.draw.ellipse(screen,'hotpink', ball)
             # draw players
             pygame.draw.rect(screen, 'green', player_left)
             pygame.draw.rect(screen, 'green', player_right)
             # player left score
-            player_left_text = score_font.render(f'{player_left_score}', False, 'pink')
+            player_left_text = score_font.render(f'{player_left_score}', False, 'green')
             screen.blit(player_left_text, (560, 10))
             # player right score
-            player_right_text = score_font.render(f'{player_right_score}', False, 'pink')
+            player_right_text = score_font.render(f'{player_right_score}', False, 'green')
             screen.blit(player_right_text, (610, 10))
             # line in middle of screen
             pygame.draw.aaline(screen, 'blue', (600,0),(600,900))
@@ -361,19 +361,19 @@ while True:
         # player_left_text = score_font.render('press n to quit', False, white)
         # screen.blit(player_left_text, (400, 600))
         # draw players
-        pygame.draw.rect(screen, white, player_left)
+        pygame.draw.rect(screen, 'green', player_left)
         player_left.y = 350
         # draw ball
-        pygame.draw.rect(screen, white, player_right)
+        pygame.draw.rect(screen, 'green', player_right)
         #pygame.draw.ellipse(screen,white, ball)
         ball.x = 760
         ball.y = 200
         player_right.y = 350
             #player left score
-        player_left_text = score_font.render(f'{player_left_score}', False, white)
+        player_left_text = score_font.render(f'{player_left_score}', False, 'green')
         screen.blit(player_left_text, (560, 10))
             # player right score
-        player_right_text = score_font.render(f'{player_right_score}', False, white)
+        player_right_text = score_font.render(f'{player_right_score}', False, 'green')
         screen.blit(player_right_text, (610, 10))
         button3.draw()
         button1.draw()
