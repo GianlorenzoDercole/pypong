@@ -311,6 +311,11 @@ while True:
             # player right movement
             player_right_direction = 7
             # computer movement
+            if ball.x > 500:
+                if player_right.y < ball.y -100:
+                    player_right.y += player_right_direction + 1
+                if player_right.y > ball.y + 100:
+                    player_right.y -= player_right_direction + 1
             if ball.x >  300:
                 if player_right.y < ball.y:
                     player_right.y += player_right_direction
