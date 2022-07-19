@@ -22,7 +22,7 @@ class Button:
         # surface for button
         self.shape = pygame.Rect(pos,(width, height))
         self.color = blue
-        self.text = score_font.render(text, True, white)
+        self.text = score_font.render(text, True, pink)
         self.text_rect = self.text.get_rect(center = self.shape.center)
         self.pressed = False
     def draw(self):
@@ -45,7 +45,7 @@ class Button_player_vs_player(Button):
         super().__init__(text,width,height,pos)
         self.shape = pygame.Rect(pos,(width, height))
         self.color = blue
-        self.text = score_font.render(text, True, white)
+        self.text = score_font.render(text, True, pink)
         self.text_rect = self.text.get_rect(center = self.shape.center)
         self.pressed = False
     # this button calls player_vs_player function when clicked
@@ -67,7 +67,7 @@ class Button_player_vs_computer(Button):
         super().__init__(text,width,height,pos)
         self.shape = pygame.Rect(pos,(width, height))
         self.color = blue
-        self.text = score_font.render(text, True, white)
+        self.text = score_font.render(text, True, pink)
         self.text_rect = self.text.get_rect(center = self.shape.center)
         self.pressed = False
     # this button calls player_vs computer function when clicked
@@ -92,9 +92,10 @@ pygame.display.set_caption('Pong')
 ball = pygame.Rect(585,435,30,30)
 bg = pygame.Rect(0,0, 1200,900)
 #color white for player and ball
-white = (250,250,250)
+white = (153, 221, 204)
 # color blue for board
-blue = (102, 191, 191)
+blue = (0, 13, 107)
+pink= (255, 93, 162)
 # set player scores to 0
 player_left_score = 0
 player_right_score = 0
@@ -340,7 +341,7 @@ while True:
             # color for court
             screen.fill(blue)
             # draw the ball
-            pygame.draw.ellipse(screen,white, ball)
+            pygame.draw.ellipse(screen,pink, ball)
             # draw players
             pygame.draw.rect(screen, white, player_left)
             pygame.draw.rect(screen, white, player_right)
@@ -351,7 +352,7 @@ while True:
             player_right_text = score_font.render(f'{player_right_score}', False, white)
             screen.blit(player_right_text, (610, 10))
             # line in middle of screen
-            pygame.draw.aaline(screen, white, (600,0),(600,900))
+            pygame.draw.aaline(screen, pink, (600,0),(600,900))
             # if player goes off screen set back to middle
         if player_left.y < -100 or player_left.y > 910:
             player_left.y = 350
@@ -423,8 +424,8 @@ while True:
         player_right_text = score_font.render(f'{player_right_score}', False, white)
         screen.blit(player_right_text, (610, 10))
         # center line
-        pygame.draw.aaline(screen, white, (600,0),(600,290))
-        pygame.draw.aaline(screen, white, (600,700),(600,900))
+        pygame.draw.aaline(screen, pink, (600,0),(600,290))
+        pygame.draw.aaline(screen, pink, (600,700),(600,900))
         # display buttons
         button1.draw()
         button2.draw()
