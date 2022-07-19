@@ -106,7 +106,7 @@ button2 = Button_player_vs_player('Click here or press P for player vs player',1
 button3 = Button_player_vs_computer('Click here or press C for player vs computer', 1000, 150, (100, 550))
 # make player left and right
 player_left = pygame.Rect(40,350,5,100)
-player_right = pygame.Rect(1140,350,5,100)
+player_right = pygame.Rect(1155,350,5,100)
 # this affects the player movement in the game loop
 player_left_direction = 0
 player_right_direction = 0

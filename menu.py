@@ -95,6 +95,7 @@ bg = pygame.Rect(0,0, 1200,900)
 white = (153, 221, 204)
 # color blue for board
 blue = (0, 13, 107)
+# pink for players and center line
 pink= (255, 93, 162)
 # set player scores to 0
 player_left_score = 0
@@ -107,7 +108,7 @@ button2 = Button_player_vs_player('Click here or press P for player vs player',1
 button3 = Button_player_vs_computer('Click here or press C for player vs computer', 1000, 150, (100, 550))
 # make player left and right
 player_left = pygame.Rect(40,350,5,100)
-player_right = pygame.Rect(1140,350,5,100)
+player_right = pygame.Rect(1155,350,5,100)
 # this affects the player movement in the game loop
 player_left_direction = 0
 player_right_direction = 0
@@ -302,22 +303,24 @@ while True:
                     options = True
         # keep playing until someone get three
         if player_left_score < 3 and player_right_score < 3:
-
             # ball movement
             ball.x += ball_xdirection
             ball.y += ball_ydirection
             # player left movement
             player_left.y += player_left_direction
+            # player right movement
+            player_right_direction = 7
             # computer movement
             if ball.x >  300:
                 if player_right.y < ball.y:
-                    player_right.y += 6
+                    player_right.y += player_right_direction
                 if player_right.y > ball.y:
-                    player_right.y -= 6
+                    player_right.y -= player_right_direction
             # player left collision
             if ball.x == player_left.x + 5 and (ball.y >= player_left.y -15 and ball.y <= player_left.y + 100):
                 ball_xdirection = ball_xdirection * -1
                 ball_ydirection = ball_ydirection * 1.1
+                player_right_direction = player_right_direction * 1.05
             # player right collision
             if ball.x == player_right.x - 30 and (ball.y >= player_right.y -15 and ball.y <= player_right.y + 100):
                 ball_xdirection = ball_xdirection * -1
@@ -360,9 +363,9 @@ while True:
             player_right.y = 350
         # display message to quit or continue
         if player_left_score == 3 or player_right_score == 3:
-            player_left_text = score_font.render('Game Over', False, white)
+            player_left_text = score_font.render('Game Over', False, pink)
             screen.blit(player_left_text, (500, 260))
-            player_left_text = score_font.render('press Y to continue or O to quit', False, white)
+            player_left_text = score_font.render('press Y to continue or O to quit', False, pink)
             screen.blit(player_left_text, (255, 360))
             # set ball speed to begining
             ball_xdirection = 5
