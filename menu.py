@@ -212,7 +212,7 @@ while True:
             # color for court
             screen.fill(blue)
             # draw the ball
-            pygame.draw.ellipse(screen,white, ball)
+            pygame.draw.ellipse(screen,pink, ball)
             # draw players
             pygame.draw.rect(screen, white, player_left)
             pygame.draw.rect(screen, white, player_right)
@@ -223,7 +223,7 @@ while True:
             player_right_text = score_font.render(f'{player_right_score}', False, white)
             screen.blit(player_right_text, (610, 10))
             # line in middle of screen
-            pygame.draw.aaline(screen, white, (600,0),(600,900))
+            pygame.draw.aaline(screen, pink, (600,0),(600,900))
         # move player to center if they go off screen
         if player_left.y < -100 or player_left.y > 910:
             player_left.y = 350
@@ -231,9 +231,9 @@ while True:
             player_right.y = 350
         # display message to quit or continue
         if player_left_score == 3 or player_right_score == 3:
-            player_left_text = score_font.render('Game Over', False, white)
+            player_left_text = score_font.render('Game Over', False, pink)
             screen.blit(player_left_text, (500, 260))
-            player_left_text = score_font.render('press Y to continue or O to quit', False, white)
+            player_left_text = score_font.render('press Y to continue or O to quit', False, pink)
             screen.blit(player_left_text, (255, 360))
         # update window
         pygame.display.flip()
@@ -383,6 +383,8 @@ while True:
 
     # this loop runs logic for options menu
     while options:
+        # make sure player right is not moving if player switches from player vs computer to player vs player
+        player_right_direction = 0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
