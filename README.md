@@ -7,7 +7,7 @@ I plan to use pygame to build the classic arcade game pong.  I will use the docu
 # Installation
 + fork and clone this repo
 + pip3 install pygame
-+ run main.py for classic run menu.py for difficult player vs computer and modern color scheme
++ run main.py for classic run modern.py for difficult player vs computer and modern color scheme
 
 # Technologies
 + python
